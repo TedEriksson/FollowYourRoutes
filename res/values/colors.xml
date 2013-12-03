@@ -4,4 +4,5 @@
     <color name="light_gray">#DDD</color>
     <color name="dark_gray">#AAA</color>
     <color name="really_dark_gray">#555</color>
+    <color name="transparentRun">#883DDBFF</color>
 </resources>

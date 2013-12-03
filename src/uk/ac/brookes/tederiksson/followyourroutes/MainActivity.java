@@ -1,13 +1,8 @@
 package uk.ac.brookes.tederiksson.followyourroutes;
 
-import java.util.Random;
-
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends Activity {
 
-	Button buttonStartNewRun, buttonFindARun, buttonMyRuns;
+	Button buttonStartNewRun, buttonFindARun, buttonMyRuns, buttonOptions;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +34,26 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				startActivity(new Intent(getApplicationContext(), MyRuns.class));
+			}
+		});
+		
+		buttonFindARun = (Button) findViewById(R.id.buttonFindRuns);
+		
+		buttonFindARun.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), FindsRuns.class));
+			}
+		});
+		
+		buttonOptions = (Button) findViewById(R.id.buttonOptions);
+		
+		buttonOptions.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(getApplicationContext(), SetOptions.class));
 			}
 		});
 		

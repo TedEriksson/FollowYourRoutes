@@ -29,20 +29,25 @@
             android:authorities="uk.ac.brookes.tederiksson.followyourroutes.tracks"></provider>
         <activity
             android:name="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen"
-            android:label="@string/app_name" >
+            android:screenOrientation="portrait" android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="RunMap" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
+        <activity android:name="RunMap" android:screenOrientation="portrait" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
             
         </activity>
         <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
-    		android:value="AIzaSyBXBqbLwSc7N0WaDGMb-EHZgg8Q3TossUE"/>
-        <activity android:name="MyRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/myruns"></activity>
+    		android:value="AIzaSyBBHmYdr8xWHm-AqcEBiw_sjxlejd5uArg"/>
+        <activity android:name="MyRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/myruns" android:screenOrientation="portrait"></activity>
+        <activity android:name="FindsRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/find_a_run"
+            android:windowSoftInputMode="stateVisible" android:screenOrientation="portrait"></activity>
+        <activity android:name="PreviewRun" android:parentActivityName="MyRuns" android:screenOrientation="portrait"></activity>
+        <activity android:name="SaveRun" android:screenOrientation="portrait" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity"></activity>
+        <activity android:name="SetOptions"></activity>
     </application>
 
 </manifest>

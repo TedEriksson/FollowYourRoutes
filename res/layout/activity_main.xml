@@ -9,14 +9,14 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/listItemName"
+        android:id="@+id/chronometerRun"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="Follow\nYour\nRoutes"
+        android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="60dp" />
+        android:textSize="60sp" />
 
     <Button
         android:id="@+id/buttonStartNewRun"
@@ -53,5 +53,17 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="My Runs" />
+
+    	<Button
+    	    android:id="@+id/buttonOptions"
+    	    style="@style/CustomButton"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:layout_above="@+id/buttonMyRuns"
+    	    android:layout_alignLeft="@+id/buttonMyRuns"
+    	    android:layout_alignParentRight="true"
+    	    android:layout_marginTop="5dp"
+      	  	android:layout_marginBottom="5dp"
+    	    android:text="Options" />
 
 </RelativeLayout>

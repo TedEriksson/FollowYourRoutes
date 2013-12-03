@@ -25,9 +25,23 @@ public class TrackContentProvider extends ContentProvider {
 	}
 	
 	@Override
-	public int delete(Uri arg0, String arg1, String[] arg2) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delete(Uri uri, String where, String[] selection) {
+		int uriType = sUriMatcher.match(uri);
+		//int uriType = 2;
+		SQLiteDatabase db = database.getWritableDatabase();
+		Log.d(TrackContentProvider.class.getName(),"starting uritype: "+Integer.toString(uriType));
+		int deleted = 0;
+		switch(uriType) {
+		case 2: break;
+		case 1: 
+			deleted = db.delete(TrackTable.TABLE_TRACKS, where, selection);
+			Log.d(TrackContentProvider.class.getName(),"deleted");
+			break;
+		default:
+			throw new IllegalArgumentException("Unknown URL: "+uri);
+		}
+		getContext().getContentResolver().notifyChange(uri, null);
+		return deleted;
 	}
 
 	@Override

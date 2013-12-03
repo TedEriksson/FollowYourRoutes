@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="myruns">My Runs</string>
-    <string name="you_have_no_recorded_runs">You have no recorded runs</string>
+    <string name="you_have_no_recorded_runs">There are no runs here</string>
+    <string name="find_a_run">Find a Run</string>
+    <string name="stop">Stop</string>
 
 </resources>

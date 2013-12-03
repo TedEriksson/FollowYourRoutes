@@ -1,12 +1,16 @@
 package uk.ac.brookes.tederiksson.followyourroutes;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyRuns extends Activity {
 
@@ -33,6 +37,17 @@ public class MyRuns extends Activity {
 	    	noItems.setVisibility(View.GONE);
 	    }
 	    list.setAdapter(adapter);
+	    
+	    list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long runID) {
+				Intent intent = new Intent(getApplicationContext(), PreviewRun.class);
+				intent.putExtra("runID", runID);
+				startActivity(intent);
+			}
+		});
 	    
 	}
 

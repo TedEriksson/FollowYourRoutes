@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MyRuns" >
+
+    <TextView
+        android:id="@+id/noRuns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/light_gray" />
+
+    <Button
+        android:id="@+id/buttonSearchRuns"
+        style="@style/CustomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:text="Go" />
+
+    <EditText
+        android:id="@+id/editTextSearchRuns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/buttonSearchRuns"
+        android:layout_alignBottom="@+id/buttonSearchRuns"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/buttonSearchRuns"
+        android:ems="10"
+        android:inputType="number"
+        android:text="11013382" />
+
+    <Button
+        android:id="@+id/buttonFindToMy"
+        style="@style/CustomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/noRuns"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Go to My Runs" />
+
+</RelativeLayout>

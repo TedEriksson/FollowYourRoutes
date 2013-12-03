@@ -23,6 +23,7 @@
         android:layout_centerVertical="true"
         android:text="@string/you_have_no_recorded_runs"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColorHint="@color/really_dark_gray" />
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/light_gray" />
 
 </RelativeLayout>
