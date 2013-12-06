@@ -8,12 +8,13 @@ import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
 public class ServerHandler {
 	private static ServerHandler serverHandler = null;
-	
 	private static final String ADDRESS = "161.73.245.41";
 	private static final int PORT = 44365;
 	
@@ -26,13 +27,36 @@ public class ServerHandler {
 		return serverHandler;
 	}
 	
-	public static String searchDatabase(String userID) {
+	public static boolean uploadTrack(String xml) {
 		getInstance();
 		try {
 			Socket socket = new Socket(ADDRESS, PORT);
 			PrintStream out = new PrintStream(socket.getOutputStream(), true);
 			BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
+			out.println("STORE " + xml + "");
+			String returnedData = input.readLine();
+			Log.d("uploadTrack", xml);
+			socket.close();
+			if(!returnedData.equals(" ")){
+				return true;
+			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			Log.e("SERVER", "Can't connect");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static String searchDatabase(String userID) {
+		getInstance();
+		try {
+			Socket socket = new Socket(ADDRESS, PORT);
+			PrintStream out = new PrintStream(socket.getOutputStream(), true);
+			BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out.println("SEARCH " + userID + " ");
 			String returnedData = input.readLine();
 			socket.close();

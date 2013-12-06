@@ -62,6 +62,8 @@ public class PreviewRun extends FragmentActivity {
 				startActivity(intentWithID);
 			}
 		});
+	    
+	    Log.d("TopSpeed", Float.toString(track.getTopSpeed()));
 	}
 	
 	private void setUpMapIfNeeded() {

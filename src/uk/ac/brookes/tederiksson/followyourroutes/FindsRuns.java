@@ -38,6 +38,7 @@ public class FindsRuns extends Activity {
 	    setContentView(R.layout.activity_findruns);
 	    
 	    editTextSearchRuns = (EditText) findViewById(R.id.editTextSearchRuns);
+	    editTextSearchRuns.setText(getSharedPreferences(SetOptions.prefs, 0).getString(SetOptions.userID, "-1"));
 	    
 	    buttonSearchRuns = (Button) findViewById(R.id.buttonSearchRuns);
 	    buttonFindToMy = (Button) findViewById(R.id.buttonFindToMy);

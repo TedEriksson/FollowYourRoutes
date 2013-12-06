@@ -41,11 +41,6 @@ public class Track {
 	}
 	
 	public String getXml() {
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"><brookesml><user-id>NOTSET";
-		return xml;
-	}
-	
-	public String getXml(String name) {
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"><brookesml><user-id>NOTSET</user-id><date>ISO 8601 format date</date><trk><name>"
 	+name+"</name>";
 		for(TrackSeg seg : trackSegs) {
@@ -93,6 +88,43 @@ public class Track {
 		return name;
 	}
 	
+	public float getTopSpeed() {
+		//Returns in Kmph
+		float fastest = 0;
+		for(TrackSeg seg : trackSegs) {
+			ArrayList<Location> points = seg.getPoints();
+			
+			for(int i = 0; i < points.size() - 1; i++) {
+				float speed = getSpeedBetween(points.get(i), points.get(i+1));
+				if(speed > fastest)
+					fastest = speed;
+			}
+		}
+		return fastest;
+	}
+	
+	public long getTime() {
+		return  getLastLocation().getTime() - getFirstLocation().getTime();
+	}
+	
+	public static float getDistanceBetween(Location loc1, Location loc2) {
+		//Km
+		return loc1.distanceTo(loc2)/1000;
+		
+	}
+	
+	public static float getSpeedBetween(Location loc1, Location loc2) {
+//		Log.d("SPEED", Float.toString(getDistanceBetween(loc1, loc2) / (loc2.getTime() - loc1.getTime())/1000/60/60));
+		float time = loc2.getTime() - loc1.getTime();
+		time = time / 1000;
+		time = time / 60;
+		time = time / 60;
+		Log.d("TIME", Float.toString(time));
+		Log.d("DIST", Float.toString(getDistanceBetween(loc1, loc2)));
+		Log.d("SPEED", Float.toString(getDistanceBetween(loc1, loc2) / time));
+		return (getDistanceBetween(loc1, loc2) / time);
+	}
+	
 	public static LatLng LocationToLatLng(Location loc) {
 		return new LatLng(loc.getLatitude(), loc.getLongitude());
 	}
@@ -103,6 +135,10 @@ public class Track {
 	
 	public Location getFirstLocation() {
 		return trackSegs.get(0).getPoints().get(0);
+	}
+	
+	public Location getLastLocation() {
+		return trackSegs.get(trackSegs.size()-1).getLastPoint();
 	}
 	
 	public PolylineOptions getPolyLineOptions() {
@@ -194,6 +230,10 @@ public class Track {
 			return c.getTimeInMillis();
 			
 		}
+	}
+
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 }
 

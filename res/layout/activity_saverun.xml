@@ -5,81 +5,126 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/editText2"
+    <fragment
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_toRightOf="@+id/textView2"
-        android:ems="10" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView1"
-        android:ems="10" />
+        class="com.google.android.gms.maps.SupportMapFragment" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText1"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_alignParentLeft="true"
-        android:padding="5dp"
-        android:text="Name" />
+    
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
-        android:layout_alignParentLeft="true"
-        android:padding="5dp"
-        android:text="User ID" />
-
-    <TextView
-        android:id="@+id/textView3"
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="Time Elapsed" />
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/boxshadow" >
 
-    <TextView
-        android:id="@+id/textView5"
+        <EditText
+            android:id="@+id/editTextSaveName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView1"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextSaveName"
+            android:layout_alignBottom="@+id/editTextSaveName"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:text="Name" />
+
+        <EditText
+            android:id="@+id/editTextSaveUserID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextSaveName"
+            android:layout_toRightOf="@+id/textView1"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editTextSaveUserID"
+            android:layout_alignBottom="@+id/editTextSaveUserID"
+            android:layout_alignParentLeft="true"
+            android:padding="5dp"
+            android:text="User ID" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonSaveRun"
+        style="@style/CustomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:text="Top Speed" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView3"
-        android:text="00:00:00"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:typeface="monospace" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
+        android:text="Save" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView5"
-        android:layout_alignBottom="@+id/textView5"
+        android:layout_above="@+id/buttonSaveRun"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:text="0Kmph"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/boxshadow" >
+
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView3"
+            android:text="00:00:00"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:typeface="monospace" />
+
+        <TextView
+            android:id="@+id/textViewTopSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView5"
+            android:layout_alignBottom="@+id/textView5"
+            android:layout_alignParentRight="true"
+            android:text="0Kmph"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView5"
+            android:padding="5dp"
+            android:text="Time Elapsed" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:text="Top Speed" />
+    </RelativeLayout>
 
 </RelativeLayout>

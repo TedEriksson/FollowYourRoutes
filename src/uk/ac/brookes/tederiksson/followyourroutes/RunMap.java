@@ -6,6 +6,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -39,6 +40,7 @@ public class RunMap extends FragmentActivity {
 	private Chronometer chronometer;
 	private long currentTime = 0;
 	private boolean timerRunning = false;
+	private ProgressDialog findingLocation;
 	
 	LocationListener locationListener = new LocationListener() {
 		
@@ -62,6 +64,7 @@ public class RunMap extends FragmentActivity {
 		
 		@Override
 		public void onLocationChanged(Location location) {
+			findingLocation.dismiss();
 			myLocation = location;
 			if(lock.isChecked()) {
 				gotoLocation(myLocation);
@@ -77,6 +80,12 @@ public class RunMap extends FragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_runmap);
+	    
+	    findingLocation = new ProgressDialog(RunMap.this);
+	    findingLocation.setMessage("Finding your location");
+	    findingLocation.show();
+	    findingLocation.setCancelable(false);
+	    findingLocation.setCanceledOnTouchOutside(false);
 	    
 	    lock = (CheckBox) findViewById(R.id.checkBoxLockCamera);
 	    textViewTime = (TextView) findViewById(R.id.runTime);
@@ -120,19 +129,24 @@ public class RunMap extends FragmentActivity {
 		    PolylineOptions poly = passedTrack.getPolyLineOptions().color(getResources().getColor(R.color.transparentRun));
 		    mMap.addPolyline(poly);
 	    } else {
-	    	gotoLocation(myLocation);
+	    	lock.setChecked(true);
 	    }
 	    startButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
+				Log.d("RunMap", "Added");
+				//myLocation.setTime()
+				track.addPoint(myLocation);
 				if(timerRunning) {
+					Log.d("RunMap", "Stop run");
 					stopTimer();
 					Intent intent = new Intent(getApplicationContext(), SaveRun.class);
-					intent.putExtra("track", track.getXml(name));
+					intent.putExtra("track", track.getXml());
 					startActivity(intent);
 					onDestroy();
 				} else {
+					Log.d("RunMap", "Start run");
 					startTimer(true);
 				}
 			}

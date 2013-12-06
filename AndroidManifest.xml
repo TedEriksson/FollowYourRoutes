@@ -36,18 +36,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="RunMap" android:screenOrientation="portrait" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.RunMap" android:screenOrientation="portrait" android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar.Fullscreen">
             
         </activity>
         <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+        <meta-data
     		android:name="com.google.android.maps.v2.API_KEY"
     		android:value="AIzaSyBBHmYdr8xWHm-AqcEBiw_sjxlejd5uArg"/>
-        <activity android:name="MyRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/myruns" android:screenOrientation="portrait"></activity>
-        <activity android:name="FindsRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/find_a_run"
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.MyRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/myruns" android:screenOrientation="portrait"></activity>
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.FindsRuns" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity" android:label="@string/find_a_run"
             android:windowSoftInputMode="stateVisible" android:screenOrientation="portrait"></activity>
-        <activity android:name="PreviewRun" android:parentActivityName="MyRuns" android:screenOrientation="portrait"></activity>
-        <activity android:name="SaveRun" android:screenOrientation="portrait" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity"></activity>
-        <activity android:name="SetOptions"></activity>
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.PreviewRun" android:parentActivityName="MyRuns" android:screenOrientation="portrait"></activity>
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.SaveRun" android:screenOrientation="portrait" android:parentActivityName="uk.ac.brookes.tederiksson.followyourroutes.MainActivity"></activity>
+        <activity android:name="uk.ac.brookes.tederiksson.followyourroutes.SetOptions"></activity>
     </application>
 
 </manifest>

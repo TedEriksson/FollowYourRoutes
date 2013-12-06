@@ -8,14 +8,14 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignBaseline="@+id/editTextUserID"
+        android:layout_alignBottom="@+id/editTextUserID"
         android:layout_alignParentLeft="true"
         android:padding="5dp"
         android:text="User ID" />
     
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextUserID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText1"
@@ -26,28 +26,28 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editText2"
-        android:layout_alignBottom="@+id/editText2"
+        android:layout_alignBaseline="@+id/editTextUserID"
+        android:layout_alignBottom="@+id/editTextUserID"
         android:layout_alignParentLeft="true"
         android:padding="5dp"
         android:text="Upload Automatically" />
 
     <ToggleButton
-        android:id="@+id/toggleButton1"
+        android:id="@+id/toggleButtonAutoUpload"
         style="@style/CustomButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ToggleButton" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonUploadNow"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload Runs Now" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonSaveOptions"
         style="@style/CustomButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
