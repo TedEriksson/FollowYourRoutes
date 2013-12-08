@@ -12,7 +12,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 public class Track {
-	private String userID, name, xml;
+	private String userID = "NOTSET", name, xml;
 	private ArrayList<TrackSeg> trackSegs;
 
 	public Track(String xml) {
@@ -30,6 +30,10 @@ public class Track {
 		this.name = name;
 	}
 	
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
+	
 	public void addPoint(Location location) {
 		if(trackSegs.size() == 0 || trackSegs.get(trackSegs.size()-1).getPoints().size()>20) {
 			TrackSeg seg = new TrackSeg();
@@ -41,7 +45,7 @@ public class Track {
 	}
 	
 	public String getXml() {
-		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"><brookesml><user-id>NOTSET</user-id><date>ISO 8601 format date</date><trk><name>"
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"><brookesml><user-id>"+userID+"</user-id><date>ISO 8601 format date</date><trk><name>"
 	+name+"</name>";
 		for(TrackSeg seg : trackSegs) {
 			xml += "<trkseg>";
@@ -89,27 +93,59 @@ public class Track {
 	}
 	
 	public float getTopSpeed() {
-		//Returns in Kmph
+		//Returns in m/s
 		float fastest = 0;
 		for(TrackSeg seg : trackSegs) {
 			ArrayList<Location> points = seg.getPoints();
 			
 			for(int i = 0; i < points.size() - 1; i++) {
 				float speed = getSpeedBetween(points.get(i), points.get(i+1));
-				if(speed > fastest)
+				if(speed < 14 && speed > fastest)
 					fastest = speed;
 			}
 		}
 		return fastest;
 	}
 	
+	public float getAverageSpeed() {
+		//Returns in m/s
+		float total = 0;
+		int count = 0;
+		for(TrackSeg seg : trackSegs) {
+			ArrayList<Location> points = seg.getPoints();
+			
+			for(int i = 0; i < points.size() - 1; i++) {
+				float speed = getSpeedBetween(points.get(i), points.get(i+1));
+				if(speed < 14) {
+					total += speed;
+					count ++;
+				}
+			}
+		}
+		return (float) total/count;
+	}
+	
+	public float getTotalDistance() {
+		float distance = 0;
+		for(TrackSeg seg : trackSegs) {
+			ArrayList<Location> points = seg.getPoints();
+			
+			for(int i = 0; i < points.size() - 1; i++) {
+				distance += getDistanceBetween(points.get(i), points.get(i+1));
+			}
+		}
+		return distance;
+		
+	}
+	
 	public long getTime() {
+		Log.d("Times", Long.toString(getLastLocation().getTime()) + " - " + Long.toString(getFirstLocation().getTime()) + " = " + Long.toString(getLastLocation().getTime() - getFirstLocation().getTime()));
 		return  getLastLocation().getTime() - getFirstLocation().getTime();
 	}
 	
 	public static float getDistanceBetween(Location loc1, Location loc2) {
-		//Km
-		return loc1.distanceTo(loc2)/1000;
+		//m
+		return loc1.distanceTo(loc2);
 		
 	}
 	
@@ -117,8 +153,6 @@ public class Track {
 //		Log.d("SPEED", Float.toString(getDistanceBetween(loc1, loc2) / (loc2.getTime() - loc1.getTime())/1000/60/60));
 		float time = loc2.getTime() - loc1.getTime();
 		time = time / 1000;
-		time = time / 60;
-		time = time / 60;
 		Log.d("TIME", Float.toString(time));
 		Log.d("DIST", Float.toString(getDistanceBetween(loc1, loc2)));
 		Log.d("SPEED", Float.toString(getDistanceBetween(loc1, loc2) / time));
@@ -127,10 +161,6 @@ public class Track {
 	
 	public static LatLng LocationToLatLng(Location loc) {
 		return new LatLng(loc.getLatitude(), loc.getLongitude());
-	}
-	
-	public long getRunTime() {
-		return trackSegs.get(trackSegs.size()-1).getLastPoint().getTime() - getFirstLocation().getTime();
 	}
 	
 	public Location getFirstLocation() {
@@ -166,7 +196,10 @@ public class Track {
 		}
 		
 		public void addPoint(Location location) {
+			location.setTime(System.currentTimeMillis());
+			Log.d("Track point", "Time: "+Long.toString(location.getTime()));
 			trackPoints.add(location);
+			Log.d("Track point", "Time: "+Long.toString(trackPoints.get(trackPoints.size()-1).getTime()));
 		}
 		
 		public ArrayList<Location> getPoints() {
@@ -230,10 +263,6 @@ public class Track {
 			return c.getTimeInMillis();
 			
 		}
-	}
-
-	public void setUserID(String userID) {
-		this.userID = userID;
 	}
 }
 

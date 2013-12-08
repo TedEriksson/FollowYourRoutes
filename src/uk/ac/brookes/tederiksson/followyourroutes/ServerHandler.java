@@ -34,11 +34,11 @@ public class ServerHandler {
 			PrintStream out = new PrintStream(socket.getOutputStream(), true);
 			BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
-			out.println("STORE " + xml + "");
+			out.println("STORE " + xml + " ");
 			String returnedData = input.readLine();
-			Log.d("uploadTrack", xml);
+			Log.d("uploadTrack", "|"+returnedData+"|"+xml);
 			socket.close();
-			if(!returnedData.equals(" ")){
+			if(returnedData.equals(" ")){
 				return true;
 			}
 		} catch (UnknownHostException e) {

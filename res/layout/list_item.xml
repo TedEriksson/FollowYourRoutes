@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,6 +10,8 @@
         android:id="@+id/listItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:text="Large Text"
@@ -19,6 +22,8 @@
         android:id="@+id/listItemUserID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/listItemName"
         android:paddingBottom="5dp"
         android:paddingLeft="10dp"
         android:paddingTop="0dp"
@@ -26,4 +31,13 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_gray" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/listItemUploaded"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</RelativeLayout>

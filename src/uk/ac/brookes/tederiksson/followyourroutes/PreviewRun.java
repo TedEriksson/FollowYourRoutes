@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,8 +22,7 @@ public class PreviewRun extends FragmentActivity {
 	private Track track;
 	private GoogleMap mMap;
 	private Button startRunButton;
-	
-	private TextView textViewRunTime;
+	private TextView textViewTopSpeed, textViewTime,textViewAvgSpeed, textViewTotalDistance;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,20 @@ public class PreviewRun extends FragmentActivity {
 			}
 	    }
 	    setTitle(track.getName());
-	    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Track.LocationToLatLng(track.getFirstLocation()),12));
+	    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Track.LocationToLatLng(track.getFirstLocation()),16));
 	    mMap.addPolyline(track.getPolyLineOptions());
 	    
-	    textViewRunTime = (TextView) findViewById(R.id.runTime);
+	    textViewTopSpeed = (TextView) findViewById(R.id.textViewTopSpeed);
+	    textViewTopSpeed.setText(String.format("%.2fkph", (track.getTopSpeed()*3.6)));
 	    
-	    textViewRunTime.setText(Long.toString(track.getRunTime()));
+	    textViewAvgSpeed = (TextView) findViewById(R.id.textViewAverageSpeed);
+	    textViewAvgSpeed.setText(String.format("%.2fkph", (track.getAverageSpeed()*3.6)));
+	    
+	    textViewTotalDistance = (TextView) findViewById(R.id.textViewTotalDistance);
+	    textViewTotalDistance.setText(String.format("%.2fm", track.getTotalDistance()));
+	    
+	    textViewTime = (TextView) findViewById(R.id.textViewTime);
+	    textViewTime.setText(DateFormat.format("mm:ss", track.getTime()).toString());
 	    
 	    this.overridePendingTransition(R.anim.right_toleft_in,
                 R.anim.right_to_left_out);

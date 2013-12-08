@@ -35,7 +35,6 @@ public class RunMap extends FragmentActivity {
 	private Location myLocation;
 	private Track track, passedTrack;
 	private LocationManager locationManager;
-	private TextView textViewTime;
 	private Button startButton;
 	private Chronometer chronometer;
 	private long currentTime = 0;
@@ -65,7 +64,8 @@ public class RunMap extends FragmentActivity {
 		@Override
 		public void onLocationChanged(Location location) {
 			findingLocation.dismiss();
-			myLocation = location;
+			if(isBetterLocation(location))
+				myLocation = location;
 			if(lock.isChecked()) {
 				gotoLocation(myLocation);
 			}
@@ -73,6 +73,42 @@ public class RunMap extends FragmentActivity {
 				track.addPoint(myLocation);
 				mMap.addPolyline(track.getPolyLineOptions().color(Color.RED));
 			}
+		}
+		
+		private boolean isBetterLocation(Location location) {
+			if(myLocation == null) {
+				return true;
+			}
+			final long TEN_SECONDS = 10000;
+			long timeDelta = location.getTime() - myLocation.getTime();
+			boolean isSignificantlyNewer = timeDelta > TEN_SECONDS;
+			boolean isSignificantlyOlder = timeDelta < -TEN_SECONDS;
+			boolean isNewer = timeDelta > 0;
+			if(isSignificantlyNewer) {
+				return true;
+			} else if (isSignificantlyOlder) {
+				return false;
+			}
+			
+			int accuracyDelta = (int) (location.getAccuracy() - myLocation.getAccuracy());
+			boolean isLessAccurate = accuracyDelta > 0;
+			boolean isMoreAccurate = accuracyDelta < 0;
+			boolean isMuchLessAccurate = accuracyDelta > 200;
+			boolean isFromSameProvider = isSameProvider(myLocation.getProvider(), location.getProvider());
+			if(isMoreAccurate) {
+				return true;
+			} else if (isNewer && !isLessAccurate) {
+				return true;
+			} else if (isNewer && !isMuchLessAccurate && isFromSameProvider) {
+				return true;
+			}
+			return false;
+		}
+		
+		protected boolean isSameProvider(String p1, String p2) {
+			if(p1 == null)
+				return p2 == null;
+			return p1.equals(p2);
 		}
 	};
 	
@@ -88,7 +124,6 @@ public class RunMap extends FragmentActivity {
 	    findingLocation.setCanceledOnTouchOutside(false);
 	    
 	    lock = (CheckBox) findViewById(R.id.checkBoxLockCamera);
-	    textViewTime = (TextView) findViewById(R.id.runTime);
 	    startButton = (Button) findViewById(R.id.buttonStart);
 	    chronometer = (Chronometer) findViewById(R.id.chronometerRun);
 	    
@@ -98,7 +133,7 @@ public class RunMap extends FragmentActivity {
 	    
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000, 0, locationListener);
+//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, locationListener);
         
         lock.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -137,17 +172,19 @@ public class RunMap extends FragmentActivity {
 			public void onClick(View v) {
 				Log.d("RunMap", "Added");
 				//myLocation.setTime()
-				track.addPoint(myLocation);
+				
 				if(timerRunning) {
 					Log.d("RunMap", "Stop run");
+					locationManager.removeUpdates(locationListener);
 					stopTimer();
+					track.addPoint(myLocation);
 					Intent intent = new Intent(getApplicationContext(), SaveRun.class);
 					intent.putExtra("track", track.getXml());
 					startActivity(intent);
-					onDestroy();
 				} else {
 					Log.d("RunMap", "Start run");
 					startTimer(true);
+					track.addPoint(myLocation);
 				}
 			}
 		});
